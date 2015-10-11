@@ -9,20 +9,20 @@ module bett() {
 }
 
 module schraubenloch() {
-    rotate([90,0,0]) cylinder(r=5, h=30, center=true);
-    translate([0,-5,0]) rotate([90,0,0]) cylinder(r=10, h=10, center=true);
+    rotate([90,0,0]) cylinder(d=5, h=30, center=true);
+    translate([0,-5,0]) rotate([90,0,0]) cylinder(d=10, h=10, center=true);
 }
 
 module halter() {
     difference() {
         minkowski() {
-            cube([30,1,70], center=true);
+            cube([30,1,50], center=true);
             sphere(r=5);
         }
         cube([25,20,25], center=true);
         
-        translate([0,0,25]) schraubenloch();
-        translate([0,0,-25]) schraubenloch();
+        translate([0,0,20]) schraubenloch();
+        translate([0,0,-20]) schraubenloch();
     }
 }
 
