@@ -58,14 +58,21 @@ int main(void) {
   sei();
   battery_init();
   uint16_t dms;
+  uint8_t last=0;
   char buffer[10];
+
   for(;;) {
-    dms = ADC_Read_Avg(1,2);
-    itoa(dms, buffer,10);
-    uart_puts(buffer);
-    uart_puts("\n");
-    battery_check();
-    _delay_ms(1000);
+    dms = ADC_Read_Avg(5,2);
+    if (dms<250 && last==1) {
+      uart_puts("move");
+      last=0;
+    } else if (dms>=550 && last==0) {
+      uart_puts("move");
+      last=1;
+    }
+
+    //battery_check(); TODO: Enable again when battery is c
+    //_delay_ms(1000);
   }
   return 0;
 }
