@@ -61,21 +61,25 @@ int main(void) {
   uint8_t last=0;
   char buffer[10];
 
-  DDRD |= (1<<6); //LED TODO: Merge into one command
-  DDRD |= (1<<7); //LED TODO: Merge into one command
-  DDRB |= (1<<0); //LED TODO: Merge into one command
-//Set the signal to high
-//PORTB |= (1<<0); //rot
-//PORTD |= (1<<7); //gruen
-  PORTD |= (1<<6); //blau
+  DDRD |= (1<<6); //LEDs blue
+  DDRD |= (1<<7); //green
+  DDRB |= (1<<0); //red
+
+  //PORTB |= (1<<0); //rot
+  //PORTD |= (1<<7); //gruen
+  //PORTD |= (1<<6); //blau
 
   for(;;) {
-    dms = ADC_Read_Avg(5,2);
+    dms = ADC_Read_Avg(0,2);
     if (dms<250 && last==1) {
       uart_puts("move");
+      PORTD ^= (1<<6); //blau
+      PORTB ^= (1<<0); //blau
       last=0;
     } else if (dms>=550 && last==0) {
       uart_puts("move");
+      PORTD ^= (1<<6); //blau
+      PORTB ^= (1<<0); //blau
       last=1;
     }
 
