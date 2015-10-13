@@ -7,7 +7,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "uart.h" //Thanks to Peter Fleury for his UART library
+#include "libraries/uart.h" //Thanks to Peter Fleury for his UART library
 
 
 void ADC_Init(void) {
@@ -60,6 +60,14 @@ int main(void) {
   uint16_t dms;
   uint8_t last=0;
   char buffer[10];
+
+  DDRD |= (1<<6); //LED TODO: Merge into one command
+  DDRD |= (1<<7); //LED TODO: Merge into one command
+  DDRB |= (1<<0); //LED TODO: Merge into one command
+//Set the signal to high
+//PORTB |= (1<<0); //rot
+//PORTD |= (1<<7); //gruen
+  PORTD |= (1<<6); //blau
 
   for(;;) {
     dms = ADC_Read_Avg(5,2);
